@@ -33,7 +33,14 @@ namespace SearchEngine
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            DataAPI dataAPI = new DataAPI();
+
+            LinksStorage linksStorage = dataAPI.getDataFromAPI("bananas");
+
+            foreach (LinkData link in linksStorage)
+            {
+                MessageBox.Show($"{link.Title}\n{link.Url}\n{link.Description}");
+            }
         }
     }
 }
