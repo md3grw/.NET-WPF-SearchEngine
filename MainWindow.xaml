@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchEngine"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" KeyUp="Window_KeyUp">
+        Title="MainWindow" Height="1080" Width="1920">
     <Grid>
         <Label Content="Search Engine" HorizontalAlignment="Center" Margin="0,239,0,0" VerticalAlignment="Top" FontSize="72" Height="118" Width="484"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,490,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="1900" Height="104" FontSize="72"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="1692,494,0,0" VerticalAlignment="Top" FontSize="72" Click="Button_Click"/>
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Center" Margin="0,490,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="1900" Height="104" FontSize="72" KeyDown="TextBox_KeyDown"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="1692,494,0,0" VerticalAlignment="Top" FontSize="72" Click="Button_Click"/>
 
     </Grid>
 </Window>

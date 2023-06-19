@@ -21,26 +21,32 @@ namespace SearchEngine
     /// </summary>
     public partial class MainWindow : Window
     {
+        API.SearchEngine searchEngine;
+
         public MainWindow()
         {
             InitializeComponent();
+            searchEngine = new API.SearchEngine();
         }
 
-        private void Window_KeyUp(object sender, KeyEventArgs e)
+        private void ExecuteSearch(string query)
         {
-            if (e.Key == Key.Enter) MessageBox.Show("Search");
+            LinksStorage links = searchEngine.Search(query);
+
+            foreach (LinkData link in links)
+            {
+                MessageBox.Show($"{link.Title}\n{link.Url}\n{link.Description}");
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DataAPI dataAPI = new DataAPI();
+            ExecuteSearch(SearchTextBox.Text); 
+        }
 
-            LinksStorage linksStorage = dataAPI.getDataFromAPI("bananas");
-
-            foreach (LinkData link in linksStorage)
-            {
-                MessageBox.Show($"{link.Title}\n{link.Url}\n{link.Description}");
-            }
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) ExecuteSearch(SearchTextBox.Text);
         }
     }
 }
