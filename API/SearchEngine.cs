@@ -17,7 +17,10 @@ namespace SearchEngine.API
 
         public LinksStorage Search(string query)
         {
-            return dataAPI.getDataFromAPI(query);
+            try { return dataAPI.getDataFromAPI(query); }
+            catch { return new LinksStorage(); }
         }
+
+
     }
 }

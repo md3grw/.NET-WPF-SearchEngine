@@ -5,11 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchEngine"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920">
-    <Grid>
-        <Label Content="Search Engine" HorizontalAlignment="Center" Margin="0,239,0,0" VerticalAlignment="Top" FontSize="72" Height="118" Width="484"/>
-        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Center" Margin="0,490,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="1900" Height="104" FontSize="72" KeyDown="TextBox_KeyDown"/>
-        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="1692,494,0,0" VerticalAlignment="Top" FontSize="72" Click="Button_Click"/>
+        Title="MainWindow"  Height="1080" Width="1920">
+    
+    <Grid HorizontalAlignment="Left" Width="1920" Background="#FFD9D9D9" MouseDown="Grid_MouseDown">
+        
+        <!--Search engine logo-->
+        <Rectangle x:Name="LogoRectangle" HorizontalAlignment="Center" Height="100" Margin="0,257,0,0" VerticalAlignment="Top" Width="612" Fill="Silver"/>
+        <Label x:Name="LogoName" Content="Search Engine" HorizontalAlignment="Left" Margin="732,247,0,0" VerticalAlignment="Top" FontSize="72" Height="110" Width="476" FontFamily="Bauhaus 93"/>
+        
+        <!--main search box-->
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Center" Margin="0,412,0,0" TextWrapping="Wrap" Text="Text..."  VerticalContentAlignment ="Center" VerticalAlignment="Top" Width="1024" Height="104" FontSize="48" KeyDown="TextBox_KeyDown"  Background="Silver" GotFocus="SearchTextBox_GotFocus" LostFocus ="SearchTextBox_LostFocus" FontFamily="Bauhaus 93" TextChanged="SearchTextBox_TextChanged"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="1306,427,0,0" VerticalAlignment="Top" FontSize="48" Click="Button_Click" FontFamily="Bauhaus 93" Background="#FFD9D9D9"/>
+
+        <!--Upper side-->
+        <Rectangle x:Name="URLSearchRectangle" HorizontalAlignment="Center" Height="64" VerticalAlignment="Top" Width="1920" Fill="Silver"/>
+        <TextBox x:Name="URLTextBox" HorizontalAlignment="Left" Margin="99,14,0,0" TextWrapping="Wrap" Text="Text..." VerticalAlignment="Top" Width="1811" Height="38" FontSize="24" FontFamily="Bauhaus 93" Background="#FFD9D9D9" KeyDown="URLTextBox_KeyDown" GotFocus="URLTextBox_GotFocus" LostFocus="URLTextBox_LostFocus" TextChanged="URLTextBox_TextChanged"/>
+
+        <!--Images of the arrows-->
+        <Button x:Name="RightButton" HorizontalAlignment="Left" Margin="51,13,0,0" VerticalAlignment="Top" Height="40" Width="40">
+            <Button.Content>
+                <Image Source="/src/LRArrow.png"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="LeftButton" HorizontalAlignment="Left" Margin="6,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.05,0.353" Height="40" Width="40">
+            <Button.Content>
+                <Image Source="/src/LRArrow.png" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-179.444"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button.Content>
+        </Button>
+
 
     </Grid>
 </Window>
