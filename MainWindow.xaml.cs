@@ -21,68 +21,62 @@ namespace SearchEngine
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool isTypedByUserURL;
-        bool isTypedByUserSearch;
+        bool isTypedByUser;
         API.SearchEngine searchEngine;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            searchEngine = new API.SearchEngine();
-            isTypedByUserURL = false;
-            isTypedByUserSearch = false;
+            AddMainLogo();
+
+            searchEngine = new API.SearchEngine(contentFrame);
+            isTypedByUser = false;
         }
 
-        private void ExecuteSearch(string query)
+        private void AddMainLogo()
         {
-            LinksStorage links = searchEngine.Search(query);
+            Grid grid = new Grid();
 
-            this.Content = new SearchPage();
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
 
-            SearchPage searchPage = this.Content as SearchPage;
+            Label label = new Label();
+            label.FontSize = 72;
+            label.Content = "Search Engine";
+            label.VerticalAlignment = VerticalAlignment.Center;
+            label.HorizontalAlignment = HorizontalAlignment.Center;
 
-            StackPanel stackPanel = searchPage.ResultsStackPannel;
+            Button button = new Button();
+            button.Click += MainPageButton_Click;
 
-            stackPanel.Children.Clear();
+            button.Height = 100;
+            button.Width = 100;
 
-            foreach (LinkData link in links)
-            {
-                TextBlock linkTextBlock = new TextBlock();
-                linkTextBlock.Text = $"Title: {link.Title}\nDescription: {link.Description}\nURL: {link.Url}";
+            Image myImage = new Image();
 
-                linkTextBlock.MouseLeftButtonUp += LinkTextBlock_MouseLeftButtonUp;
+            //ur path
+            myImage.Source = new BitmapImage(new Uri("C:\\Users\\emosk\\Documents\\C#\\Search engine\\SearchEngine\\src\\github.png", UriKind.RelativeOrAbsolute));
+            
+            button.Content = myImage;
 
-                stackPanel.Children.Add(linkTextBlock);
-            }
+            button.HorizontalAlignment = HorizontalAlignment.Left;
+
+            grid.Children.Add(label);
+            grid.Children.Add(button);
+
+            Grid.SetColumn(label, 1);
+            Grid.SetColumn(button, 2);
+
+            contentFrame.Content = grid;
 
         }
 
-        private void LinkTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void URLSearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            TextBlock clickedTextBlock = sender as TextBlock;
-            if (clickedTextBlock != null)
-            {
-                string linkInfo = clickedTextBlock.Text;
-
-                this.Content = new SitePage(linkInfo);
-            }
-        }
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteSearch(SearchTextBox.Text); 
-        }
-
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter) ExecuteSearch(SearchTextBox.Text);
-        }
-
-        private void URLTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter) ExecuteSearch(SearchTextBox.Text);
+            if (e.Key == Key.Enter) contentFrame.Content = searchEngine.ExecuteSearch(URLSearchTextBox.Text);
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -90,48 +84,37 @@ namespace SearchEngine
             Keyboard.ClearFocus();
         }
 
-        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        private void URLSearchTextBox_GotFocus(Object sender, RoutedEventArgs e)
         {
+
             const string labelText = "Text...";
 
-            if (SearchTextBox.Text == labelText && !isTypedByUserSearch)
-                SearchTextBox.Text = "";
+            if (URLSearchTextBox.Text == labelText && !isTypedByUser)
+                URLSearchTextBox.Text = "";
         }
 
-        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void URLSearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (SearchTextBox.Text.Length <= 0)
+            if (URLSearchTextBox.Text.Length <= 0)
             {
-                SearchTextBox.Text = "Text...";
-                isTypedByUserSearch = false;
+                URLSearchTextBox.Text = "Text...";
+                isTypedByUser = false;
             }
         }
 
-        private void URLTextBox_GotFocus(Object sender, RoutedEventArgs e)
+        private void URLSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            const string labelText = "Text...";
-
-            if (URLTextBox.Text == labelText && !isTypedByUserURL)
-                URLTextBox.Text = "";
+            isTypedByUser = true;
         }
 
-        private void URLTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void MainPageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (URLTextBox.Text.Length <= 0)
-            {
-                URLTextBox.Text = "Text...";
-                isTypedByUserURL = false;
-            }
-        }
+            WebBrowser webBrowser = new WebBrowser();
+            webBrowser.LoadCompleted += searchEngine.WebBrowser_LoadCompleted;
+            
+            webBrowser.Navigate("https://github.com/wonderxxfull");
 
-        private void URLTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            isTypedByUserURL = true;
-        }
-
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            isTypedByUserSearch = true;
+            contentFrame.Content = webBrowser;
         }
     }
 }

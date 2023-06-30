@@ -5,43 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchEngine"
         mc:Ignorable="d"
-        Title="MainWindow"  Height="1080" Width="1920">
-    
-    <Grid HorizontalAlignment="Left" Width="1920" Background="#FFD9D9D9" MouseDown="Grid_MouseDown">
-        
-        <!--Search engine logo-->
-        <Rectangle x:Name="LogoRectangle" HorizontalAlignment="Center" Height="100" Margin="0,257,0,0" VerticalAlignment="Top" Width="612" Fill="Silver"/>
-        <Label x:Name="LogoName" Content="Search Engine" HorizontalAlignment="Left" Margin="732,247,0,0" VerticalAlignment="Top" FontSize="72" Height="110" Width="476" FontFamily="Bauhaus 93"/>
-        
-        <!--main search box-->
-        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Center" Margin="0,412,0,0" TextWrapping="Wrap" Text="Text..."  VerticalContentAlignment ="Center" VerticalAlignment="Top" Width="1024" Height="104" FontSize="48" KeyDown="TextBox_KeyDown"  Background="Silver" GotFocus="SearchTextBox_GotFocus" LostFocus ="SearchTextBox_LostFocus" FontFamily="Bauhaus 93" TextChanged="SearchTextBox_TextChanged"/>
-        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="1306,427,0,0" VerticalAlignment="Top" FontSize="48" Click="Button_Click" FontFamily="Bauhaus 93" Background="#FFD9D9D9"/>
+        Title="SearchEngine" Background="#F0F0F0" MinHeight="789" MinWidth="1440">
 
-        <!--Upper side-->
-        <Rectangle x:Name="URLSearchRectangle" HorizontalAlignment="Center" Height="64" VerticalAlignment="Top" Width="1920" Fill="Silver"/>
-        <TextBox x:Name="URLTextBox" HorizontalAlignment="Left" Margin="99,14,0,0" TextWrapping="Wrap" Text="Text..." VerticalAlignment="Top" Width="1811" Height="38" FontSize="24" FontFamily="Bauhaus 93" Background="#FFD9D9D9" KeyDown="URLTextBox_KeyDown" GotFocus="URLTextBox_GotFocus" LostFocus="URLTextBox_LostFocus" TextChanged="URLTextBox_TextChanged"/>
+    <Grid MouseDown="Grid_MouseDown">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <!--Images of the arrows-->
-        <Button x:Name="RightButton" HorizontalAlignment="Left" Margin="51,13,0,0" VerticalAlignment="Top" Height="40" Width="40">
-            <Button.Content>
-                <Image Source="/src/LRArrow.png"/>
-            </Button.Content>
-        </Button>
-        <Button x:Name="LeftButton" HorizontalAlignment="Left" Margin="6,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.05,0.353" Height="40" Width="40">
-            <Button.Content>
-                <Image Source="/src/LRArrow.png" RenderTransformOrigin="0.5,0.5">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-179.444"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Button.Content>
-        </Button>
+        <!-- URL Search bar -->
+        <Grid x:Name="URLSearchBarGrid" Grid.Row="0" Background="#D9D9D9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <Rectangle x:Name="URLSearchBarRectangle" Grid.Column="0" Fill="#D9D9D9"/>
 
+            <TextBox x:Name="URLSearchTextBox" Grid.Column="1" Text="Text..." Margin="10,10,10,10"
+                         Background="#D9D9D9" FontSize="24" FontFamily="Segoe UI" Foreground="Black"
+                         KeyDown="URLSearchTextBox_KeyDown"
+                         GotFocus="URLSearchTextBox_GotFocus" LostFocus="URLSearchTextBox_LostFocus"
+                         TextChanged="URLSearchTextBox_TextChanged"/>
+        </Grid>
+
+        <!-- Content frame -->
+        <Frame x:Name="contentFrame" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"/>
     </Grid>
 </Window>
