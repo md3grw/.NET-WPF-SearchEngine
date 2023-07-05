@@ -12,7 +12,7 @@ namespace SearchEngine
 
         public Config()
         {
-            Env.Load("../../../.env");
+            Env.Load("../../../../.env");
 
             apiKey = Environment.GetEnvironmentVariable("API_KEY");
             searchEngineID = Environment.GetEnvironmentVariable("SEARCH_ENGINE_ID");

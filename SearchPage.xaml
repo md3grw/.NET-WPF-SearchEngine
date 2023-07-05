@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SearchEngine"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920" 
-      Title="SearchPage" Background="#FFD9D9D9">
+      Title="SearchPage" Background="#F0F0F0">
 
     <Grid Background="#E5E5E5">
         <StackPanel x:Name="ResultsStackPanel" Grid.Row="2" Grid.Column="2" Background="#F5F5F5">

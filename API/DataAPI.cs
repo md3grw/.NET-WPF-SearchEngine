@@ -26,7 +26,7 @@ namespace SearchEngine.API
 
         public LinksStorage getDataFromAPI(string query)
         {
-            var customSearch = new Google.Apis.Customsearch.v1.CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
+            var customSearch = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
             
             var customSearchList = customSearch.Cse.List();
             customSearchList.Q = query;

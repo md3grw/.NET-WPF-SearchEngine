@@ -17,12 +17,14 @@ namespace SearchEngine.API
         private Frame contentFrame;
         private DataAPI dataAPI;
 
+        public static string currentURL = "Search Engine";
+
         public SearchEngine(Frame contentFrame)
         {
             dataAPI = new DataAPI();
 
             this.contentFrame = contentFrame;
-        }
+        }   
 
         public LinksStorage Search(string query)
         {
@@ -44,15 +46,27 @@ namespace SearchEngine.API
 
             foreach (LinkData link in links)
             {
-                TextBlock linkTextBlock = new TextBlock();
-                linkTextBlock.Tag = link.Url;
-                linkTextBlock.FontSize = 24;
-                
-                linkTextBlock.Text = $"{link.Url}\n{link.Title}\n{link.Description}\n";
+                TextBlock linkTextBlockURL = new TextBlock();
+                TextBlock linkTextBlockTitle = new TextBlock();
+                TextBlock linkTextBlockDescription = new TextBlock();
+                linkTextBlockURL.Tag = link.Url;
+                linkTextBlockTitle.Tag = link.Url;
+                linkTextBlockURL.FontSize = 16;
 
-                linkTextBlock.MouseLeftButtonDown += LinkTextBlock_MouseLeftButtonDown;
+                linkTextBlockTitle.FontSize = 28;
 
-                stackPanel.Children.Add(linkTextBlock);
+                linkTextBlockDescription.FontSize = 18;
+
+                linkTextBlockURL.Text = $"{link.Url}";
+                linkTextBlockTitle.Text = $"{link.Title}";
+                linkTextBlockDescription.Text = $"{link.Description}\n";
+
+                linkTextBlockURL.MouseLeftButtonDown += LinkTextBlock_MouseLeftButtonDown;
+                linkTextBlockTitle.MouseLeftButtonDown += LinkTextBlock_MouseLeftButtonDown;
+
+                stackPanel.Children.Add(linkTextBlockURL);
+                stackPanel.Children.Add(linkTextBlockTitle);
+                stackPanel.Children.Add(linkTextBlockDescription);
             }
 
             return searchPage;
@@ -63,23 +77,8 @@ namespace SearchEngine.API
             TextBlock clickedTextBlock = (TextBlock)sender;
             string url = clickedTextBlock.Tag.ToString();
 
-            WebBrowser webBrowser = new WebBrowser();
-            webBrowser.LoadCompleted += this.WebBrowser_LoadCompleted;
-
-            webBrowser.Navigate(url);
-
-            contentFrame.Navigate(webBrowser);
+            contentFrame.Navigate(new SitePage(url));
+            currentURL= url;
         }
-
-        public void WebBrowser_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-            WebBrowser webBrowser = (WebBrowser)sender;
-            dynamic activeX = webBrowser.GetType().InvokeMember("ActiveXInstance",
-                BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-                null, webBrowser, new object[] { });
-
-            activeX.Silent = true;
-        }
-
     }
 }
