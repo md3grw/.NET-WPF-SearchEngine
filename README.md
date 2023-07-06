@@ -8,7 +8,7 @@ This project is a C# WPF application that utilizes the Google API to perform sea
 
 1. Clone the repository: 
     ```bash
-    git clone https://github.com/your/repository.git
+    git clone https://github.com/md3grw/.NET-WPF-SearchEngine.git
 2. Set up the .env file(Google API (check the Config.cs file))
 3. Open .csproj file in your IDE
 
