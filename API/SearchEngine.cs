@@ -17,8 +17,6 @@ namespace SearchEngine.API
         private Frame contentFrame;
         private DataAPI dataAPI;
 
-        public static string currentURL = "Search Engine";
-
         public SearchEngine(Frame contentFrame)
         {
             dataAPI = new DataAPI();
@@ -78,7 +76,6 @@ namespace SearchEngine.API
             string url = clickedTextBlock.Tag.ToString();
 
             contentFrame.Navigate(new SitePage(url));
-            currentURL= url;
         }
     }
 }

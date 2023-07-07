@@ -1,12 +1,11 @@
-﻿<Window x:Class="SearchEngine.MainWindow"
+﻿<Window x:Class="SearchEngine.MainWindowFiles.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchEngine"
-        xmlns:API="clr-namespace:SearchEngine.API"
         mc:Ignorable="d"
-        Title="{x:Static API:SearchEngine.currentURL}" Background="#F0F0F0" MinHeight="789" MinWidth="1440">
+        Title="Search Engine" Background="#F0F0F0" MinHeight="789" MinWidth="1440">
 
     <Grid MouseDown="Grid_MouseDown">
         <Grid.RowDefinitions>
