@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SearchEngine;
 using System.Windows.Controls;
-
+using SearchEngine.FileManagement;
 
 namespace SearchEngine.MainWindowFiles
 {
@@ -16,14 +16,12 @@ namespace SearchEngine.MainWindowFiles
         {
             if (IsUrlValid(searchText))
             {
+                Logger.Log("User was redirected to " + searchText);
                 contentFrame.Content = new SitePage(searchText);
-            }
-            else if (IsUrlValid("https://" + searchText))
-            {
-                contentFrame.Content = new SitePage("https://" + searchText);
             }
             else
             {
+                Logger.Log("User was redirected to search page with " + searchText + " query");
                 contentFrame.Content = searchEngine.ExecuteSearch(URLSearchTextBox.Text);
             }
         }

@@ -1,4 +1,5 @@
 ﻿using SearchEngine.API;
+using SearchEngine.FileManagement;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +19,10 @@ namespace SearchEngine.MainWindowFiles
         public MainWindow()
         {
             InitializeComponent();
-            
+
+            //initializing directories
+            Logger logger = new Logger();
+
             AddMainLogo();
 
             searchEngine = new API.SearchEngine(contentFrame);
