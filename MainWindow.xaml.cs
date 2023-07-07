@@ -35,8 +35,8 @@ namespace SearchEngine
             grid.RowDefinitions.Add(new RowDefinition());
 
             Label label = new Label();
-            label.FontSize = 85;
-            label.FontFamily = new FontFamily("Bernard MT Condensed");
+            label.FontSize = 73;
+            label.FontFamily = new FontFamily("Franklin Gothic Demi");
             label.Content = "Search Engine";
             label.VerticalAlignment = VerticalAlignment.Center;
             label.HorizontalAlignment = HorizontalAlignment.Center;
@@ -45,12 +45,13 @@ namespace SearchEngine
 
             Grid.SetColumn(label, 1);
 
+
             contentFrame.Content = grid;
         }
 
         private void URLSearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) contentFrame.Content = searchEngine.ExecuteSearch(URLSearchTextBox.Text);
+            if (e.Key == Key.Enter) HandleSearchInput(URLSearchTextBox.Text);
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -82,12 +83,33 @@ namespace SearchEngine
 
         private void GitButton_Click(object sender, RoutedEventArgs e)
         {
-            contentFrame.Content = new SitePage("https://github.com/md3grw");
+            HandleSearchInput("https://github.com/md3grw");
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            contentFrame.Content = searchEngine.ExecuteSearch(URLSearchTextBox.Text);
+            HandleSearchInput(URLSearchTextBox.Text);
+        }
+
+        private void HandleSearchInput(string searchText)
+        {
+            if (IsUrlValid(searchText))
+            {
+                contentFrame.Content = new SitePage(searchText);
+            }
+            else if (IsUrlValid("https://" + searchText))
+            {
+                contentFrame.Content = new SitePage("https://" + searchText);
+            }
+            else
+            {
+                contentFrame.Content = searchEngine.ExecuteSearch(URLSearchTextBox.Text);
+            }
+        }
+
+        private bool IsUrlValid(string text)
+        {
+            return Uri.TryCreate(text, UriKind.Absolute, out _);
         }
     }
 }

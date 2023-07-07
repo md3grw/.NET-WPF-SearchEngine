@@ -10,6 +10,5 @@
 
     <Grid>
         <wv2:WebView2 x:Name="webView" />
-        <Label Content="Label" HorizontalAlignment="Left" Margin="170,287,0,0" VerticalAlignment="Top" FontSize="72" FontFamily="Bernard MT Condensed"/>
     </Grid>
 </Page>

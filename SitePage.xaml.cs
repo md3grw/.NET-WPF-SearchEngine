@@ -31,7 +31,7 @@ namespace SearchEngine
         private async void InitializeWebView(string url)
         {
             await webView.EnsureCoreWebView2Async();
-            webView.CoreWebView2.Navigate(url); 
+            webView.CoreWebView2.Navigate(url);
         }
     }
 }
