@@ -20,6 +20,8 @@ This project is a C# WPF application that utilizes the Google API to perform sea
 - Microsoft.Extensions.Configuration.UserSecrets
 - Microsoft.Web.WebView2
 
+*If you are having problems launching app for the first time, changing <ImageBrush ImageSource="../images/github.png"/> in MainWindow.xaml for an absolute path will help you.
+
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
