@@ -22,7 +22,10 @@ namespace SearchEngine.FileManagement
 
         static public void Log(string message) 
         {
-            System.IO.File.WriteAllText(filePath, message);
+            using (StreamWriter writer = File.AppendText(filePath))
+            {
+                writer.WriteLine(message);
+            }
         }
     }
 }
